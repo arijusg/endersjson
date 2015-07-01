@@ -1,6 +1,8 @@
 # endersjson
 
-<img src="https://raw.githubusercontent.com/cryosharp/fluentwindsor/master/logo.png" align="right" />
+| Downloads | Version |
+|-----------|---------|
+| ![NuGet Total](https://img.shields.io/nuget/dt/EndersJson.svg) | ![NuGet Version](https://img.shields.io/nuget/v/EndersJson.svg) |
 
 A easy to use JSON client. If you have ever tried to add headers to an HttpClient then you would know how painful it can be to do 
 the most basic of interactions with an endpoint. The async nature of the HttpClient also assumes much about your architecture. 
@@ -12,18 +14,22 @@ for you.
 
 First start by pulling the latest package from NuGet. After doing so you can create your JSON client by simply doing the following:
 
-    var client = new JsonService();
+``` csharp
+var client = new JsonService();
+```
 
 ###Person Example
 
 Let's say we would like to interact with an end point that manages contacts named Person. The example POCO we will use is something
 like this: 
 
-    public class Person
-    {
-        public int Age { get; set; }
-        public string Name { get; set; }
-    }
+``` csharp
+public class Person
+{
+    public int Age { get; set; }
+    public string Name { get; set; }
+}
+```
 
 Not really something you would find out in the wild but at least sets the tone for how we use the client with strongly typed objects
 and is referenced in all the examples throughout this doc. 
@@ -40,15 +46,19 @@ If we were to make a GET request to find all the persons from the API we would t
 
 This returns an `IEnumerable` of `Person`. If we had to issue the request the code would look something like this:
 
-	var client = new JsonService();
-	var result = client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons");
-	client.Dispose();
+``` csharp
+var client = new JsonService();
+var result = client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons");
+client.Dispose();
+```
 
 You can also pass query variables to a Get overload using an anonymous instance like so:
 
-	var client = new JsonService();
-	var result = client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons", new { Skip = 10, Take = 20 });
-	client.Dispose();
+``` csharp
+var client = new JsonService();
+var result = client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons", new { Skip = 10, Take = 20 });
+client.Dispose();
+```
 
 This will produce the following get url `http://localhost:9999/api/persons?skip=10&take=20`.
 
@@ -60,10 +70,12 @@ Next let's take a look at how we post(create new objects). Given the following e
 
 Then we would have code that goes something like this:
 
-    var person = new Person() { Age = 10, Name = "Johnny" };
-	var client = new JsonService();
-	client.Post<Person>("http://localhost:9999/api/person", person);
-	client.Dispose();
+``` csharp
+var person = new Person() { Age = 10, Name = "Johnny" };
+var client = new JsonService();
+client.Post<Person>("http://localhost:9999/api/person", person);
+client.Dispose();
+```
 
 ###PUT Requests
 
@@ -74,10 +86,12 @@ same end point but it has to respond to the correct verb like so.
 
 Then we would have code that goes something like this:
 
-    var person = new Person() { Age = 10, Name = "Johnny" };
-	var client = new JsonService();
-	client.Put<Person>("http://localhost:9999/api/person", person);
-	client.Dispose();
+``` csharp
+var person = new Person() { Age = 10, Name = "Johnny" };
+var client = new JsonService();
+client.Put<Person>("http://localhost:9999/api/person", person);
+client.Dispose();
+```
 
 In this case the code is assuming the same object of type `Person` would be returned by way of the generic type parameter. Arguably a
 little superflous if you are not interested in the result. 
@@ -90,18 +104,22 @@ You can also make DELETE requests and as always we assume the same endpoint howe
 
 The code also assumes a generic for the return type if any. 
 
-	var client = new JsonService();
-	client.Delete<Person>(FormatUri("api/person/1"));
-	client.Dispose();
+``` csharp
+var client = new JsonService();
+client.Delete<Person>(FormatUri("api/person/1"));
+client.Dispose();
+```
 
 ##But I dont care about POCO's
 
 So let's say you cannot be asked to roll strongly typed objects like `Person` for your interactions, that is perfectly ok. In that
 case I would recommend the use of `dynamic` which works just as well. Let's see how we do this with the GET example. 
 
-	var client = new JsonService();
-	var result = client.Get<dynamic>("http://localhost:9999/api/persons");
-	client.Dispose();
+``` csharp
+var client = new JsonService();
+var result = client.Get<dynamic>("http://localhost:9999/api/persons");
+client.Dispose();
+```
 
 The only caveat is that you will lose compile time safety with whatever you do with the result. 
 
@@ -110,26 +128,31 @@ The only caveat is that you will lose compile time safety with whatever you do w
 Glad you asked. The client has provisining for checking the last http status code returned from the end point. Here is how we
 check for a 404 not found. 
 
-	client.Put<Person>("http://localhost:9999/api/person_404", new Person());
-
-	var httpErrorCode = client.GetLastStatusCode(); // Should be HttpStatusCode.NotFound
-
+``` csharp
+client.Put<Person>("http://localhost:9999/api/person_404", new Person());
+var httpErrorCode = client.GetLastStatusCode(); // Should be HttpStatusCode.NotFound
+```
 
 ##What about headers?
 
 You can do this via the `SetHeader` member on the client service like so.
 
-	client.SetHeader("Authorization", Guid.NewGuid().ToString("N"));
+``` csharp
+client.SetHeader("Authorization", Guid.NewGuid().ToString("N"));
+```
 
 Please bare in mind that this value will be applied to every subsquent the client makes. So if you need to get rid of the header you 
 have 2 options. 
 
-	client.ClearHeader("Authorization");
+``` csharp
+client.ClearHeader("Authorization");
+```
 
 Or
 
-	client.ClearHeaders(); // Which resets everything
-
+``` csharp
+client.ClearHeaders(); // Which resets everything
+```
 
 ##A Castle Windsor version
 
