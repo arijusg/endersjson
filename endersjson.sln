@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndersJson.Tests", "Tests\EndersJson.Tests.csproj", "{805E8FF2-80D9-429B-A6B5-A846A2DA8BE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E63C9C9D-30BB-47C4-8078-DFCC124FD40D}"
+	ProjectSection(SolutionItems) = preProject
+		.build\build-and-deploy.msbuild = .build\build-and-deploy.msbuild
+		.build\build-and-deploy.properties.v4.5.msbuild = .build\build-and-deploy.properties.v4.5.msbuild
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{952B14C8-4DA7-405C-9FAC-E5A5C6F1D171}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{0BD5DE34-8D0E-4EE7-ABE6-ACF288805D82}"
+	ProjectSection(SolutionItems) = preProject
+		deploy.bat = deploy.bat
+		package-and-push.bat = package-and-push.bat
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildTasks", "BuildTasks\BuildTasks.csproj", "{6C9072FE-B0ED-4A93-8083-C692FA250CEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndersJson.Windsor.Tests", "Windsor.Tests\EndersJson.Windsor.Tests.csproj", "{A24DA96F-0EEF-4AFB-9F73-3F99586520DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndersJson", "EndersJson\EndersJson.csproj", "{36C995AE-6649-43EF-A7AA-8B2ACA91D667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndersJson.Windsor", "EndersJson.Windsor\EndersJson.Windsor.csproj", "{9A5D37C9-EB0A-41D9-9CD9-AF871EF16BDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{805E8FF2-80D9-429B-A6B5-A846A2DA8BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805E8FF2-80D9-429B-A6B5-A846A2DA8BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805E8FF2-80D9-429B-A6B5-A846A2DA8BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805E8FF2-80D9-429B-A6B5-A846A2DA8BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C9072FE-B0ED-4A93-8083-C692FA250CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C9072FE-B0ED-4A93-8083-C692FA250CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C9072FE-B0ED-4A93-8083-C692FA250CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C9072FE-B0ED-4A93-8083-C692FA250CEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A24DA96F-0EEF-4AFB-9F73-3F99586520DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A24DA96F-0EEF-4AFB-9F73-3F99586520DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A24DA96F-0EEF-4AFB-9F73-3F99586520DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A24DA96F-0EEF-4AFB-9F73-3F99586520DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36C995AE-6649-43EF-A7AA-8B2ACA91D667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C995AE-6649-43EF-A7AA-8B2ACA91D667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C995AE-6649-43EF-A7AA-8B2ACA91D667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C995AE-6649-43EF-A7AA-8B2ACA91D667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A5D37C9-EB0A-41D9-9CD9-AF871EF16BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A5D37C9-EB0A-41D9-9CD9-AF871EF16BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A5D37C9-EB0A-41D9-9CD9-AF871EF16BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A5D37C9-EB0A-41D9-9CD9-AF871EF16BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

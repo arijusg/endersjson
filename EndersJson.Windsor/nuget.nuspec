@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<package>
+	<metadata>
+		<id>EndersJson.Windsor</id>
+		<version>1.0.0.0</version>
+		<authors>fir3pho3nixx@gmail.com</authors>
+		<description>A library for making client json requests</description>
+		<tags>Json Client EndersJson</tags>
+		<language>en-GB</language>
+		<projectUrl>https://github.com/cryosharp/endersjson</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/cryosharp/endersjson/master/logo.png</iconUrl>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="System" targetFramework="net45" />
+		</frameworkAssemblies>
+		<references>
+			<reference file="EndersJson.Windsor.dll" />
+		</references>
+		<dependencies>
+			<dependency id="FluentWindsor" version="1.0.0" />
+			<dependency id="EndersJson" version="1.0.0" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\**\EndersJson.Windsor.dll" target="lib\4.5" />
+	</files>
+</package>
