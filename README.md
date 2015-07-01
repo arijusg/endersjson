@@ -12,7 +12,7 @@ First start by pulling the latest package from NuGet. After doing so you can cre
 
     var client = new JsonService();
 
-###Persons Example
+###Person Example
 
 Let's say we would like to interact with an end point that manages contacts named Person. The example POCO we will use is something
 like this: 
@@ -88,7 +88,57 @@ You can also make DELETE requests and as always we assume the same endpoint howe
 
 The code also assumes a generic for the return type if any. 
 
-	json.Delete<Person>(FormatUri("api/person/1"));
+	var client = new JsonService();
+	client.Delete<Person>(FormatUri("api/person/1"));
+	client.Dispose();
+
+##But I dont care about POCO's
+
+So let's say you cannot be asked to roll strongly typed objects like `Person` for your interactions, that is perfectly ok. In that
+case I would recommend the use of `dynamic` which works just as well. Let's see how we do this with the GET example. 
+
+	var client = new JsonService();
+	var result = client.Get<dynamic>("http://localhost:9999/api/persons");
+	client.Dispose();
+
+The only caveat is that you will lose compile time safety with whatever you do with the result. 
+
+##How do I deal with errors?
+
+Glad you asked. The client has provisining for checking the last http status code returned from the end point. Here is how we
+check for a 404 not found. 
+
+	client.Put<Person>("http://localhost:9999/api/person_404", new Person());
+
+	var httpErrorCode = client.GetLastStatusCode(); // Should be HttpStatusCode.NotFound
+
+
+##What about headers?
+
+You can do this via the `SetHeader` member on the client service like so.
+
+	client.SetHeader("Authorization", Guid.NewGuid().ToString("N"));
+
+Please bare in mind that this value will be applied to every subsquent the client makes. So if you need to get rid of the header you 
+have 2 options. 
+
+	client.ClearHeader("Authorization");
+
+Or
+
+	client.ClearHeaders(); // Which resets everything
+
+
+##A Castle Windsor version
+
+There is also a castle windsor version of this cache which can be auto loaded using FluentWindsor. For more about how you can use this please see https://github.com/cryosharp/fluentwindsor.
+
+##Problems?
+
+For any problems please sign into github and raise issues.
 
 
 
+
+
+	
