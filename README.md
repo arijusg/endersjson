@@ -1,5 +1,7 @@
 # endersjson
 
+<img src="https://raw.githubusercontent.com/cryosharp/fluentwindsor/master/logo.png" align="right" />
+
 A easy to use JSON client. If you have ever tried to add headers to an HttpClient then you would know how painful it can be to do 
 the most basic of interactions with an endpoint. The async nature of the HttpClient also assumes much about your architecture. 
 Sometimes this is just over kill and you end up writing heaps of boiler plate code to make things happen. This client comes DI
