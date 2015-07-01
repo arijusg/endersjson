@@ -152,5 +152,10 @@ namespace EndersJson
             var payload = result.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(payload, settings);
         }
+
+        public void Dispose()
+        {
+            client.Dispose();
+        }
     }
 }

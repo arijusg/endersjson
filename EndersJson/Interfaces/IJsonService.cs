@@ -1,8 +1,9 @@
+using System;
 using System.Net;
 
 namespace EndersJson.Interfaces
 {
-    public interface IJsonService
+    public interface IJsonService : IDisposable
     {
         T Get<T>(string uri);
         T Get<T>(string uri, object data);
