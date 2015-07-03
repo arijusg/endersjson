@@ -9,7 +9,7 @@ namespace EndersJson.Tests.Framework
         {
             var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
             appBuilder.UseWebApi(config).UseNancy();
         }
     }

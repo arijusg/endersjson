@@ -6,7 +6,7 @@ namespace EndersJson.Tests.Framework
 {
     public class Person
     {
-        public static readonly Person Any = new Person() { Name = "Any", Age = 1 };
+        public static readonly Person Any = new Person {Name = "Any", Age = 1};
         public int Age { get; set; }
         public string Name { get; set; }
     }
@@ -38,14 +38,14 @@ namespace EndersJson.Tests.Framework
     public class PersonsController : ApiController
     {
         [HttpGet]
-        [ResponseType(typeof(IEnumerable<Person>))]
+        [ResponseType(typeof (IEnumerable<Person>))]
         public IHttpActionResult Get()
         {
             return Ok(new[]
             {
-                new Person() {Name = "Jon", Age = 20},
-                new Person() {Name = "Jill", Age = 22},
-                new Person() {Name = "Jeff", Age = 24},
+                new Person {Name = "Jon", Age = 20},
+                new Person {Name = "Jill", Age = 22},
+                new Person {Name = "Jeff", Age = 24}
             });
         }
     }

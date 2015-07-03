@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using EndersJson.Tests.Framework;
@@ -33,7 +32,6 @@ namespace EndersJson.Tests.Performance
                 {
                     var result = await json.Get<IEnumerable<Person>>(FormatUri("api/persons"));
                     Assert.That(result.Count(), Is.EqualTo(3));
-                    Assert.That(json.GetLastStatusCode(), Is.EqualTo(HttpStatusCode.OK));
                     Interlocked.Increment(ref CurrentCount);
                     Console.Write(".");
                     if (CurrentCount >= MaxCount)
@@ -42,7 +40,6 @@ namespace EndersJson.Tests.Performance
                         wait.Set();
                     }
                 });
-                
             }
 
             wait.WaitOne();
