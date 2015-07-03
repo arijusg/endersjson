@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>EndersJson</id>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
     <authors>fir3pho3nixx@gmail.com</authors>
     <description>A library for making client json requests</description>
     <tags>Json Client EndersJson</tags>

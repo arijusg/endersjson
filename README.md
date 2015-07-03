@@ -5,7 +5,7 @@
 | ![NuGet Total](https://img.shields.io/nuget/dt/EndersJson.svg) | ![NuGet Version](https://img.shields.io/nuget/v/EndersJson.svg) |
 
 A easy to use JSON client. If you have ever tried to add headers to an HttpClient then you would know how painful it can be to do 
-the most basic of interactions with an endpoint. This client comes DI ready but is synchronous. There is an additional bolt on if 
+the most basic of interactions with an endpoint. This client comes DI ready but is asynchronous. There is an additional bolt on if 
 you are using FluentWindsor which will handle all the registration for you. 
 
 ##How it works
