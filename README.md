@@ -121,16 +121,6 @@ client.Dispose();
 
 The only caveat is that you will lose compile time safety with whatever you do with the result. 
 
-##How do I deal with errors?
-
-Glad you asked. The client has provisining for checking the last http status code returned from the end point. Here is how we
-check for a 404 not found. 
-
-``` csharp
-await client.Put<Person>("http://localhost:9999/api/person_404", new Person());
-var httpErrorCode = client.GetLastStatusCode(); // Should be HttpStatusCode.NotFound
-```
-
 ##What about headers?
 
 You can do this via the `SetHeader` member on the client service like so.
