@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using EndersJson.Extensions;
 using EndersJson.Interfaces;
 using Newtonsoft.Json;
@@ -29,76 +30,76 @@ namespace EndersJson
             settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
         }
 
-        public T Get<T>(string uri)
+        public async Task<T> Get<T>(string uri)
         {
             var requestMessage = CreateRequest(HttpMethod.Get, uri);
-            var result = client.SendAsync(requestMessage).Result;
+            var result = await client.SendAsync(requestMessage);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);
             return DeserialiseResponse<T>(result);
         }
 
-        public T Get<T>(string uri, object data)
+        public async Task<T> Get<T>(string uri, object data)
         {
             var fullUri = string.Format("{0}?{1}", uri, data.ToQueryString());
             var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
-            var result = client.SendAsync(requestMessage).Result;
+            var result = await client.SendAsync(requestMessage);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);
             return DeserialiseResponse<T>(result);
         }
 
-        public T Post<T>(string uri)
+        public async Task<T> Post<T>(string uri)
         {
             var request = CreateRequest(HttpMethod.Post, uri);
             request.Content = SerializeRequest();
-            var result = client.SendAsync(request).Result;
+            var result = await client.SendAsync(request);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);
             return DeserialiseResponse<T>(result);
         }
 
-        public T Post<T>(string uri, object data)
+        public async Task<T> Post<T>(string uri, object data)
         {
             var request = CreateRequest(HttpMethod.Post, uri);
             request.Content = SerializeRequest(data);
-            var result = client.SendAsync(request).Result;
+            var result = await client.SendAsync(request);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);
             return DeserialiseResponse<T>(result);
         }
 
-        public T Put<T>(string uri)
+        public async Task<T> Put<T>(string uri)
         {
             var request = CreateRequest(HttpMethod.Put, uri);
             request.Content = SerializeRequest();
-            var result = client.SendAsync(request).Result;
+            var result = await client.SendAsync(request);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);
             return DeserialiseResponse<T>(result);
         }
 
-        public T Put<T>(string uri, object data)
+        public async Task<T> Put<T>(string uri, object data)
         {
             var request = CreateRequest(HttpMethod.Put, uri);
             request.Content = SerializeRequest(data);
-            var result = client.SendAsync(request).Result;
+            var result = await client.SendAsync(request);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);
             return DeserialiseResponse<T>(result);
         }
 
-        public T Delete<T>(string uri)
+        public async Task<T> Delete<T>(string uri)
         {
             var request = CreateRequest(HttpMethod.Delete, uri);
             request.Content = SerializeRequest();
-            var result = client.SendAsync(request).Result;
+            var result = await client.SendAsync(request);
             lastStatusCode = result.StatusCode;
             if (!result.IsSuccessStatusCode)
                 return default(T);

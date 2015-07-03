@@ -5,10 +5,8 @@
 | ![NuGet Total](https://img.shields.io/nuget/dt/EndersJson.svg) | ![NuGet Version](https://img.shields.io/nuget/v/EndersJson.svg) |
 
 A easy to use JSON client. If you have ever tried to add headers to an HttpClient then you would know how painful it can be to do 
-the most basic of interactions with an endpoint. The async nature of the HttpClient also assumes much about your architecture. 
-Sometimes this is just over kill and you end up writing heaps of boiler plate code to make things happen. This client comes DI
-ready and is synchronous. There is an additional bolt on if you are using FluentWindsor which will handle all the registration 
-for you. 
+the most basic of interactions with an endpoint. This client comes DI ready but is synchronous. There is an additional bolt on if 
+you are using FluentWindsor which will handle all the registration for you. 
 
 ##How it works
 
@@ -48,7 +46,7 @@ This returns an `IEnumerable` of `Person`. If we had to issue the request the co
 
 ``` csharp
 var client = new JsonService();
-var result = client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons");
+var result = await client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons");
 client.Dispose();
 ```
 
@@ -56,7 +54,7 @@ You can also pass query variables to a Get overload using an anonymous instance 
 
 ``` csharp
 var client = new JsonService();
-var result = client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons", new { Skip = 10, Take = 20 });
+var result = await client.Get<IEnumerable<Person>>("http://localhost:9999/api/persons", new { Skip = 10, Take = 20 });
 client.Dispose();
 ```
 
@@ -73,7 +71,7 @@ Then we would have code that goes something like this:
 ``` csharp
 var person = new Person() { Age = 10, Name = "Johnny" };
 var client = new JsonService();
-client.Post<Person>("http://localhost:9999/api/person", person);
+await client.Post<Person>("http://localhost:9999/api/person", person);
 client.Dispose();
 ```
 
@@ -89,7 +87,7 @@ Then we would have code that goes something like this:
 ``` csharp
 var person = new Person() { Age = 10, Name = "Johnny" };
 var client = new JsonService();
-client.Put<Person>("http://localhost:9999/api/person", person);
+await client.Put<Person>("http://localhost:9999/api/person", person);
 client.Dispose();
 ```
 
@@ -106,7 +104,7 @@ The code also assumes a generic for the return type if any.
 
 ``` csharp
 var client = new JsonService();
-client.Delete<Person>(FormatUri("api/person/1"));
+await client.Delete<Person>(FormatUri("api/person/1"));
 client.Dispose();
 ```
 
@@ -117,7 +115,7 @@ case I would recommend the use of `dynamic` which works just as well. Let's see 
 
 ``` csharp
 var client = new JsonService();
-var result = client.Get<dynamic>("http://localhost:9999/api/persons");
+var result = await client.Get<dynamic>("http://localhost:9999/api/persons");
 client.Dispose();
 ```
 
@@ -129,7 +127,7 @@ Glad you asked. The client has provisining for checking the last http status cod
 check for a 404 not found. 
 
 ``` csharp
-client.Put<Person>("http://localhost:9999/api/person_404", new Person());
+await client.Put<Person>("http://localhost:9999/api/person_404", new Person());
 var httpErrorCode = client.GetLastStatusCode(); // Should be HttpStatusCode.NotFound
 ```
 
@@ -153,6 +151,12 @@ Or
 ``` csharp
 client.ClearHeaders(); // Which resets everything
 ```
+
+##Dont synchronise using Task.Result
+
+If you try to synchronise this library by using `Task.Result` it will deadlock (thanks to Tony Das for pointing this out). You cannot synchronise using this method if you are using this library
+in a multi-threaded context. You are also killing off scalability and your code and it wont be stable. The really painful part about this is that all of your calling code has to be changed to
+use async/await. 
 
 ##A Castle Windsor version
 

@@ -92,6 +92,7 @@
     <Compile Include="Extensions\HttpExtensionsTests.cs" />
     <Compile Include="Framework\WebApiModule.cs" />
     <Compile Include="JsonServiceTests.cs" />
+    <Compile Include="Performance\JsonServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\WebApiTestBase.cs" />
     <Compile Include="Framework\Startup.cs" />
