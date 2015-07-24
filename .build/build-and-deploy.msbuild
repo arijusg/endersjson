@@ -9,6 +9,8 @@
 	<Import Project="$(Properties)" />
 
 	<UsingTask TaskName="BumpVersion" AssemblyFile="BuildTasks.dll" />
+  <UsingTask TaskName="MigratePackageDependenciesToNuSpec" AssemblyFile="BuildTasks.dll" />
+  <UsingTask TaskName="SetExplicitVersionsForDependencies" AssemblyFile="BuildTasks.dll" />
 
 	<Target Name="tasks\Clean">
 		<Exec Command="del /s /f /q *.nupkg" />
@@ -24,17 +26,19 @@
 
 	<Target Name="tasks\Pack">
 		<BumpVersion FilePath="../EndersJson/nuget.nuspec" XPathToVersionNumber="/package/metadata/version" />
+    <BumpVersion FilePath="../EndersJson.Windsor/nuget.nuspec" XPathToVersionNumber="/package/metadata/version" />
+    <SetExplicitVersionsForDependencies RelativePath="..\" />
 		<Exec Command="nuget pack ../EndersJson/nuget.nuspec" />
-		<BumpVersion FilePath="../EndersJson.Windsor/nuget.nuspec" XPathToVersionNumber="/package/metadata/version" />
 		<Exec Command="nuget pack ../EndersJson.Windsor/nuget.nuspec" />
 	</Target>
 
 	<Target Name="tasks\Push">
-		<Exec Command="nuget push $(ThisDirectory)EndersJson.1.0.0.*.nupkg" />
-		<Exec Command="nuget push $(ThisDirectory)EndersJson.Windsor.1.0.0.*.nupkg" />
+		<Exec Command="nuget push $(ThisDirectory)EndersJson.1.0.*.nupkg" />
+		<Exec Command="nuget push $(ThisDirectory)EndersJson.Windsor.1.0.*.nupkg" />
 	</Target>
 
 	<Target Name="Deploy">
+    <MigratePackageDependenciesToNuSpec RelativePath="..\" />
 		<CallTarget Targets="tasks\Clean" />
 		<CallTarget Targets="tasks\Build" />
 		<CallTarget Targets="tasks\Pack" />
