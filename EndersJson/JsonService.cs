@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -27,6 +26,13 @@ namespace EndersJson
             client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             settings = new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()};
+        }
+
+        public JsonService(HttpClient client)
+        {
+            this.client = client;
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
         }
 
         public async Task<T> Get<T>(string uri)
