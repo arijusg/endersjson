@@ -39,7 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentWindsor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentWindsor.1.0.0.35\lib\4.5\Release\FluentWindsor.dll</HintPath>
+      <HintPath>..\packages\FluentWindsor.1.0.11\lib\4.5\Release\FluentWindsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
