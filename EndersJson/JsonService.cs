@@ -61,10 +61,10 @@ namespace EndersJson
             return DeserialiseResponse<T>(result);
         }
 
-        public async Task<T> Post<T>(string uri, object data)
+        public async Task<T> Post<T>(string uri, object data, bool dontSerialize=false)
         {
             var request = CreateRequest(HttpMethod.Post, uri);
-            request.Content = SerializeRequest(data);
+            request.Content = dontSerialize ? new StringContent(data.ToString()) : SerializeRequest(data);
             var result = await client.SendAsync(request);
             result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
@@ -79,10 +79,10 @@ namespace EndersJson
             return DeserialiseResponse<T>(result);
         }
 
-        public async Task<T> Put<T>(string uri, object data)
+        public async Task<T> Put<T>(string uri, object data, bool dontSerialize=false)
         {
             var request = CreateRequest(HttpMethod.Put, uri);
-            request.Content = SerializeRequest(data);
+            request.Content = dontSerialize ? new StringContent(data.ToString()) : SerializeRequest(data);
             var result = await client.SendAsync(request);
             result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
