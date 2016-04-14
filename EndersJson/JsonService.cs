@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using EndersJson.Extensions;
 using EndersJson.Interfaces;
@@ -64,7 +65,14 @@ namespace EndersJson
         public async Task<T> Post<T>(string uri, object data, bool dontSerialize=false)
         {
             var request = CreateRequest(HttpMethod.Post, uri);
-            request.Content = dontSerialize ? new StringContent(data.ToString()) : SerializeRequest(data);
+            if (dontSerialize)
+            {
+                request.Content = new StringContent(data.ToString(), Encoding.UTF32, "application/json");
+            }
+            else
+            {
+                request.Content = SerializeRequest(data);
+            }
             var result = await client.SendAsync(request);
             result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
@@ -82,7 +90,14 @@ namespace EndersJson
         public async Task<T> Put<T>(string uri, object data, bool dontSerialize=false)
         {
             var request = CreateRequest(HttpMethod.Put, uri);
-            request.Content = dontSerialize ? new StringContent(data.ToString()) : SerializeRequest(data);
+            if (dontSerialize)
+            {
+                request.Content = new StringContent(data.ToString(), Encoding.UTF32, "application/json");
+            }
+            else
+            {
+                request.Content = SerializeRequest(data);
+            }
             var result = await client.SendAsync(request);
             result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
