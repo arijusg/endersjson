@@ -67,7 +67,7 @@ namespace EndersJson
             var request = CreateRequest(HttpMethod.Post, uri);
             if (dontSerialize)
             {
-                request.Content = new StringContent(data.ToString(), Encoding.UTF32, "application/json");
+                request.Content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
             }
             else
             {
@@ -92,7 +92,7 @@ namespace EndersJson
             var request = CreateRequest(HttpMethod.Put, uri);
             if (dontSerialize)
             {
-                request.Content = new StringContent(data.ToString(), Encoding.UTF32, "application/json");
+                request.Content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
             }
             else
             {
