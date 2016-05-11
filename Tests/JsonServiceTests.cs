@@ -29,6 +29,7 @@ namespace EndersJson.Tests
         [ExpectedException(typeof (HttpRequestException))]
         public async Task Should_be_able_to_DELETE_resource_from_web_api_and_throw_if_not_found()
         {
+            json.EnableOnlySuccessOnlyMode();
             await json.Delete<Person>(FormatUri("api/person_404/1"));
         }
 
@@ -43,6 +44,7 @@ namespace EndersJson.Tests
         [ExpectedException(typeof (HttpRequestException))]
         public async Task Should_be_able_to_GET_resource_from_web_api_and_throw_if_not_found()
         {
+            json.EnableOnlySuccessOnlyMode();
             await json.Get<IEnumerable<Person>>(FormatUri("api/persons_404"));
         }
 
@@ -65,6 +67,7 @@ namespace EndersJson.Tests
         [ExpectedException(typeof (HttpRequestException))]
         public async Task Should_be_able_to_POST_resource_from_web_api_and_throw_if_not_found()
         {
+            json.EnableOnlySuccessOnlyMode();
             await json.Post<Person>(FormatUri("api/person_404"), Person.Any);
         }
 
@@ -78,6 +81,7 @@ namespace EndersJson.Tests
         [ExpectedException(typeof (HttpRequestException))]
         public async Task Should_be_able_to_PUT_resource_from_web_api_and_throw_if_not_found()
         {
+            json.EnableOnlySuccessOnlyMode();
             await json.Put<Person>(FormatUri("api/person_404"), Person.Any);
         }
     }

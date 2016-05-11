@@ -13,6 +13,7 @@ namespace EndersJson
 {
     public class JsonService : IJsonService
     {
+        private bool successOnly = false;
         private readonly HttpClient client;
         private readonly JsonSerializerSettings settings;
         private static readonly ConcurrentDictionary<string, string> Headers;
@@ -40,7 +41,8 @@ namespace EndersJson
         {
             var requestMessage = CreateRequest(HttpMethod.Get, uri);
             var result = await client.SendAsync(requestMessage);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -49,7 +51,8 @@ namespace EndersJson
             var fullUri = string.Format("{0}?{1}", uri, data.ToQueryString());
             var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
             var result = await client.SendAsync(requestMessage);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -58,7 +61,8 @@ namespace EndersJson
             var request = CreateRequest(HttpMethod.Post, uri);
             request.Content = SerializeRequest();
             var result = await client.SendAsync(request);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -74,7 +78,8 @@ namespace EndersJson
                 request.Content = SerializeRequest(data);
             }
             var result = await client.SendAsync(request);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -83,7 +88,8 @@ namespace EndersJson
             var request = CreateRequest(HttpMethod.Put, uri);
             request.Content = SerializeRequest();
             var result = await client.SendAsync(request);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -99,7 +105,8 @@ namespace EndersJson
                 request.Content = SerializeRequest(data);
             }
             var result = await client.SendAsync(request);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -108,7 +115,8 @@ namespace EndersJson
             var request = CreateRequest(HttpMethod.Delete, uri);
             request.Content = SerializeRequest();
             var result = await client.SendAsync(request);
-            result.EnsureSuccessStatusCode();
+            if (successOnly)
+                result.EnsureSuccessStatusCode();
             return DeserialiseResponse<T>(result);
         }
 
@@ -125,6 +133,11 @@ namespace EndersJson
         public void ClearHeaders()
         {
             Headers.Clear();
+        }
+
+        public void EnableOnlySuccessOnlyMode(bool successOnly = true)
+        {
+            this.successOnly = successOnly;
         }
 
         public void Dispose()

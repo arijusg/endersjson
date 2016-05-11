@@ -15,5 +15,6 @@ namespace EndersJson.Interfaces
         void SetHeader(string header, string value);
         void ClearHeader(string header);
         void ClearHeaders();
+        void EnableOnlySuccessOnlyMode(bool successOnly = true);
     }
 }
