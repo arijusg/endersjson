@@ -33,8 +33,8 @@
 	</Target>
 
 	<Target Name="tasks\Push">
-		<Exec Command="nuget push $(ThisDirectory)EndersJson.1.0.*.nupkg" />
-		<Exec Command="nuget push $(ThisDirectory)EndersJson.Windsor.1.0.*.nupkg" />
+		<Exec Command="nuget push $(ThisDirectory)EndersJson.2.0.*.nupkg" />
+		<Exec Command="nuget push $(ThisDirectory)EndersJson.Windsor.2.0.*.nupkg" />
 	</Target>
 
 	<Target Name="Deploy">
