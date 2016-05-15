@@ -40,7 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentWindsor">
-      <HintPath>..\packages\FluentWindsor.2.0.2\lib\4.6.1\Release\FluentWindsor.dll</HintPath>
+      <HintPath>..\packages\FluentWindsor.2.0.3\lib\4.6.1\Release\FluentWindsor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
