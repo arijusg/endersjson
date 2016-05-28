@@ -37,67 +37,61 @@ namespace EndersJson
             settings = new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()};
         }
 
-        public async Task<T> Get<T>(string uri)
+        public async Task<T> Get<T>(string uri, object data = null)
         {
-            var requestMessage = CreateRequest(HttpMethod.Get, uri);
+            var fullUri = uri + data.ToQueryString();
+            var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
             var result = await client.SendAsync(requestMessage);
             if (successOnly)
                 result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
+            return await DeserialiseResponse<T>(result);
         }
 
-        public async Task<T> Post<T>(string uri)
+        public async Task<string> GetString(string uri, object data = null)
         {
-            var request = CreateRequest(HttpMethod.Post, uri);
-            request.Content = SerializeRequest();
-            var result = await client.SendAsync(request);
+            var fullUri = uri + data.ToQueryString();
+            var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
+            var result = await client.SendAsync(requestMessage);
             if (successOnly)
                 result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
+
+            return await result.Content.ReadAsStringAsync();
         }
 
-        public async Task<T> Post<T>(string uri, object data, bool dontSerialize = false)
+        public async Task<T> Post<T>(string uri, object data = null, bool dontSerialize = false)
         {
             var request = CreateRequest(HttpMethod.Post, uri);
             if (dontSerialize)
             {
-                request.Content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+                request.Content = new StringContent(data.SafeToString(), Encoding.UTF8, "application/json");
             }
             else
             {
-                request.Content = SerializeRequest(data);
+                if (data != null)
+                    request.Content = SerializeRequest(data);
             }
             var result = await client.SendAsync(request);
             if (successOnly)
                 result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
+            return await DeserialiseResponse<T>(result);
         }
 
-        public async Task<T> Put<T>(string uri)
-        {
-            var request = CreateRequest(HttpMethod.Put, uri);
-            request.Content = SerializeRequest();
-            var result = await client.SendAsync(request);
-            if (successOnly)
-                result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
-        }
-
-        public async Task<T> Put<T>(string uri, object data, bool dontSerialize = false)
+        public async Task<T> Put<T>(string uri, object data = null, bool dontSerialize = false)
         {
             var request = CreateRequest(HttpMethod.Put, uri);
             if (dontSerialize)
             {
-                request.Content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+                request.Content = new StringContent(data.SafeToString(), Encoding.UTF8, "application/json");
             }
             else
             {
-                request.Content = SerializeRequest(data);
+                if (data != null)
+                    request.Content = SerializeRequest(data);
             }
             var result = await client.SendAsync(request);
             if (successOnly)
                 result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
+            return await DeserialiseResponse<T>(result);
         }
 
         public async Task<T> Delete<T>(string uri)
@@ -107,7 +101,7 @@ namespace EndersJson
             var result = await client.SendAsync(request);
             if (successOnly)
                 result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
+            return await DeserialiseResponse<T>(result);
         }
 
         public void SetHeader(string header, string value)
@@ -135,27 +129,6 @@ namespace EndersJson
             client.Dispose();
         }
 
-        public async Task<T> Get<T>(string uri, object data)
-        {
-            var fullUri = string.Format("{0}?{1}", uri, data.ToQueryString());
-            var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
-            var result = await client.SendAsync(requestMessage);
-            if (successOnly)
-                result.EnsureSuccessStatusCode();
-            return DeserialiseResponse<T>(result);
-        }
-
-        public async Task<string> GetString(string uri, object data)
-        {
-            var fullUri = string.Format("{0}?{1}", uri, data.ToQueryString());
-            var requestMessage = CreateRequest(HttpMethod.Get, fullUri);
-            var result = await client.SendAsync(requestMessage);
-            if (successOnly)
-                result.EnsureSuccessStatusCode();
-
-            return data.ToString();
-        }
-
         private HttpContent SerializeRequest(object data = null)
         {
             StringContent request;
@@ -176,9 +149,9 @@ namespace EndersJson
             return requestMessage;
         }
 
-        private T DeserialiseResponse<T>(HttpResponseMessage result)
+        private async Task<T> DeserialiseResponse<T>(HttpResponseMessage result)
         {
-            var payload = result.Content.ReadAsStringAsync().Result;
+            var payload = await result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(payload, settings);
         }
     }

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\HttpExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IJsonService.cs" />
     <Compile Include="JsonService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

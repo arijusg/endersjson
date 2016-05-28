@@ -18,7 +18,7 @@ namespace EndersJson.Tests.Extensions
 
             var queryString = anyInstance.ToQueryString();
 
-            Assert.That(queryString, Is.EqualTo("Age=21&Id=9&Name=Foo"));
+            Assert.That(queryString, Is.EqualTo("?Age=21&Id=9&Name=Foo"));
         }
     }
 }
