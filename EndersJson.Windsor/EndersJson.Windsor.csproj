@@ -39,8 +39,9 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentWindsor">
-      <HintPath>..\packages\FluentWindsor.2.0.3\lib\4.6.1\Release\FluentWindsor.dll</HintPath>
+    <Reference Include="FluentWindsor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentWindsor.2.0.6\lib\4.6.1\Release\FluentWindsor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

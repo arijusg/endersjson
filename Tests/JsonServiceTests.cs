@@ -92,5 +92,13 @@ namespace EndersJson.Tests
                 await json.Put<Person>(FormatUri("api/person_404"), Person.Any);
             });
         }
+
+        [Test]
+        public async Task Should_be_able_to_GET_AS_STRING_from_web_api()
+        {
+            var result = await json.GetString(FormatUri("api/person"), Person.Any);
+            Assert.That(result, Is.TypeOf<string>());
+            Assert.That(result, Is.Not.Null.Or.Empty);
+        }
     }
 }

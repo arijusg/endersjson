@@ -9,13 +9,13 @@ namespace EndersJson.Tests.Framework
         private readonly string BaseUri = "http://localhost:9999";
         private IDisposable server;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public virtual void SetUpFixture()
         {
             server = WebApp.Start<Startup>(BaseUri);
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public virtual void FixtureDispose()
         {
             server.Dispose();

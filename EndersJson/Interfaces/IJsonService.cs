@@ -16,5 +16,6 @@ namespace EndersJson.Interfaces
         void ClearHeader(string header);
         void ClearHeaders();
         void EnableOnlySuccessOnlyMode(bool successOnly = true);
+        Task<string> GetString(string uri, object data);
     }
 }
